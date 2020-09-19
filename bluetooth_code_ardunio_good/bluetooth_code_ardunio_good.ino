@@ -53,6 +53,8 @@ double dist_right()
   digitalWrite(trig_right, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig_right, LOW);
+
+  long duration;
   
   duration = pulseIn(echo_right, HIGH);
   double distance = (double)duration * 345 / 2 / 1000000;
@@ -68,6 +70,8 @@ double dist_left()
   digitalWrite(trig_left, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig_left, LOW);
+
+  long duration;
   
   duration = pulseIn(echo_left, HIGH);
   double distance = (double)duration * 345 / 2 / 1000000;
@@ -83,6 +87,8 @@ double dist_fowl()
   digitalWrite(trig_fowl, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig_fowl, LOW);
+
+  long duration;
   
   duration = pulseIn(echo_fowl, HIGH);
   double distance = (double)duration * 345 / 2 / 1000000;
@@ -98,6 +104,8 @@ double dist_fowr()
   digitalWrite(trig_fowr, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig_fowr, LOW);
+
+  long duration;
   
   duration = pulseIn(echo_fowr, HIGH);
   double distance = (double)duration * 345 / 2 / 1000000;
@@ -105,7 +113,7 @@ double dist_fowr()
   return distance;
 }
 
-void move_fow()
+void move_foward()
 {
 
  //move foward code here
@@ -145,7 +153,28 @@ void setup()
 
 void loop() 
 {
+  if(Serial.available() > 0)
+  {
+      char cmd = Serial.read();
 
+      if(cmd == 'F')
+      {
+        //go foward 30cm 
+        move_foward();
+
+        //get distance
+        double right_dist = dist_right();
+        double front_right_dist = dist_fowr();
+        double front_left_dist = dist_fowl();
+ 
+        
+      }
+
+
+
+
+    
+  }
 
   
 
