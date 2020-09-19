@@ -105,6 +105,23 @@ double dist_fowr()
   return distance;
 }
 
+void move_fow()
+{
+
+ //move foward code here
+  
+}
+
+void rotate_right()
+{
+  //rotate right by 90deg code here
+}
+
+void rotate_left()
+{
+  //rotate left by 90deg code here
+}
+
 
 void setup() 
 { 
