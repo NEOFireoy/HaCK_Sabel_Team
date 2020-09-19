@@ -172,6 +172,8 @@ void loop()
 {
   if(Serial.available() > 0)
   {
+
+      initial_distance();
       
       char cmd = Serial.read();
 
@@ -180,24 +182,20 @@ void loop()
         //go foward 30cm 
         move_foward();
 
-        //get distance
+       /* //get distance
         double right_dist = dist_right();
         double front_right_dist = dist_fowr();
         double front_left_dist = dist_fowl();
         double left_dist = dist_left();
 
-        Serial.println("Right: ");
         Serial.println(right_dist);
         delay(10);
-        Serial.println("Front Right: ");
         Serial.println(front_right_dist);
         delay(10);
-        Serial.println("Front Left: ");
         Serial.println(front_left_dist);
         delay(10);
-        Serial.println("Left: ");
         Serial.println(left_dist);
-        delay(10);
+        delay(10);*/
  
         
       }
