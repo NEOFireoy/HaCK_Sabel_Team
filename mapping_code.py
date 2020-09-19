@@ -43,7 +43,7 @@ distances = np.array((0,0,0,0,), dtype='float')
 start_time = time.time()
 # map is divided into 30cmx30cm submaps
 el_time = 0.000
-while (el_time < 1200.000):
+while (el_time < 30.000):
 
     try:
         OutgoingData = '1'
@@ -66,6 +66,21 @@ while (el_time < 1200.000):
         ### Moving above or below
         try:
             OutgoingData = 'F'
+            SerialPort.write(bytes(OutgoingData, 'utf-8'))
+            time.sleep(0.001)
+        except KeyboardInterrupt:
+            print("Closing and exiting the program")
+            SerialPort.close()
+            sys.exit(0)
+
+        dist_travel = SerialPort.readline()
+        dist_travel = dist_travel.decode('utf-8')
+        while dist_travel < 30:
+            dist_travel = SerialPort.readline()
+            dist_travel = dist_travel.decode('utf-8')
+
+        try:
+            OutgoingData = '1'
             SerialPort.write(bytes(OutgoingData, 'utf-8'))
             time.sleep(0.001)
         except KeyboardInterrupt:
