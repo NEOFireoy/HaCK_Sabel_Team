@@ -57,8 +57,54 @@ double dist_right()
   duration = pulseIn(echo_right, HIGH);
   double distance = (double)duration * 345 / 2 / 1000000;
 
-  return distance  
+  return distance; 
 }
+
+double dist_left()
+{
+  digitalWrite(trig_left, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(trig_left, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig_left, LOW);
+  
+  duration = pulseIn(echo_left, HIGH);
+  double distance = (double)duration * 345 / 2 / 1000000;
+
+  return distance;
+}
+
+double dist_fowl()
+{
+  digitalWrite(trig_fowl, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(trig_fowl, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig_fowl, LOW);
+  
+  duration = pulseIn(echo_fowl, HIGH);
+  double distance = (double)duration * 345 / 2 / 1000000;
+
+  return distance;
+}
+
+double dist_fowr()
+{
+  digitalWrite(trig_fowr, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(trig_fowr, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig_fowr, LOW);
+  
+  duration = pulseIn(echo_fowr, HIGH);
+  double distance = (double)duration * 345 / 2 / 1000000;
+
+  return distance;
+}
+
 
 void setup() 
 { 
