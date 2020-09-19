@@ -1,0 +1,48 @@
+
+const int trig_fowl = 22;
+const int echo_fowl = 23;
+
+const int trig_left = 24;
+const int echo_left = 25;
+
+const int trig_right = 26;
+const int echo_right = 27;
+
+const int trig_fowr = 28;
+const int echo_fowr = 29; 
+
+char in_value = 0;
+
+
+
+
+
+void setup() 
+{ 
+  Serial.begin(9600);
+  
+   pinMode(trig_fowl, OUTPUT);
+   pinMode(echo_fowl, INPUT);
+
+   pinMode(trig_left, OUTPUT);
+   pinMode(echo_left, INPUT);
+
+   pinMode(trig_right, OUTPUT);
+   pinMode(echo_right, INPUT);
+
+   pinMode(trig_fowr, OUTPUT);
+   pinMode(echo_fowr, INPUT);
+
+  
+    
+}
+
+void loop() 
+{
+
+
+  
+
+  
+
+}
