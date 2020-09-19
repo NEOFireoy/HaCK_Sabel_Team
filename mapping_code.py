@@ -4,37 +4,35 @@ import time
 import sys
 import signal
 
+
 def signal_handler(signal, frame):
-  print("closing program")
-  SerialPort.close()
-  sys.exit(0)
+    print("closing program")
+    SerialPort.close()
+    sys.exit(0)
+
 
 COM = input("Enter the COM Port\n")
 BAUD = 9600
-SerialPort = serial.Serial(COM,BAUD,timeout=1)
+SerialPort = serial.Serial(COM, BAUD, timeout=1)
 
 posx = 1
 posy = 0
 
-map = np.zeros(5,5)
-#map is divided into 30cmx30cm submaps
+#map = np.zeros(5, 5)
+# map is divided into 30cmx30cm submaps
 
-
-
-
-
-
-'''
 while (1):
-  try:
-     OutgoingData=input('> ')
-     SerialPort.write(bytes(OutgoingData,'utf-8'))
-  except KeyboardInterrupt:
-     print("Closing and exiting the program")
-     SerialPort.close()
-     sys.exit(0)
-  IncomingData=SerialPort.readline()
-  if(IncomingData):
-     print((IncomingData).decode('utf-8'))
-  time.sleep(0.01)
-'''
+    try:
+        OutgoingData = 'F'
+        SerialPort.write(bytes(OutgoingData, 'utf-8'))
+        time.sleep(0.001)
+    except KeyboardInterrupt:
+        print("Closing and exiting the program")
+        SerialPort.close()
+        sys.exit(0)
+
+    IncomingData = SerialPort.readline()
+    if (IncomingData):
+        print((IncomingData).decode('utf-8'))
+        time.sleep(0.001)
+
