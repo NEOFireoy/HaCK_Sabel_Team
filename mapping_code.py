@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import serial
 import time
 import sys
@@ -13,6 +13,11 @@ COM = input("Enter the COM Port\n")
 BAUD = 9600
 SerialPort = serial.Serial(COM,BAUD,timeout=1)
 
+posx = 1
+posy = 0
+
+map = np.zeros(5,5)
+#map is divided into 30cmx30cm submaps
 
 
 
