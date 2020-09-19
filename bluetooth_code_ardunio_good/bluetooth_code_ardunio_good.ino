@@ -42,7 +42,7 @@ const int echo_right = 27;
 const int trig_fowr = 28;
 const int echo_fowr = 29; 
 
-char in_value = 0;
+char Incoming_value = 0;
 
 
 double dist_right()
@@ -172,9 +172,7 @@ void loop()
 {
   if(Serial.available() > 0)
   {
-  
-      initial_distance();
-    
+      
       char cmd = Serial.read();
 
       if(cmd == 'F')
@@ -188,19 +186,23 @@ void loop()
         double front_left_dist = dist_fowl();
         double left_dist = dist_left();
 
+        Serial.println("Right: ");
         Serial.println(right_dist);
-        delay(1);
+        delay(10);
+        Serial.println("Front Right: ");
         Serial.println(front_right_dist);
-        delay(1);
+        delay(10);
+        Serial.println("Front Left: ");
         Serial.println(front_left_dist);
-        delay(1);
+        delay(10);
+        Serial.println("Left: ");
         Serial.println(left_dist);
-        delay(1);
+        delay(10);
  
         
       }
 
-       delay(1000);
+       
     
   }
 
