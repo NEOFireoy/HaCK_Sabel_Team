@@ -11,6 +11,23 @@ def signal_handler(signal, frame):
     sys.exit(0)
 
 map = np.zeros((5, 5))
+'''
+Map: 
+-------------
+| 0 * 0 0 0 |
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
+-------------
+
+* : Robot
+1 : Object
+0 : Empty
+
+
+
+'''
 posx = 1
 posy = 0
 print(map)
@@ -43,7 +60,37 @@ while (el_time < 20.000):
             distances[num] = data
             num = num + 1
             time.sleep(0.01)
-    print(distances)
+
+    if distances[1] > 30.00 and distances[2] > 30.00:
+        try:
+            OutgoingData = 'F'
+            SerialPort.write(bytes(OutgoingData, 'utf-8'))
+            time.sleep(0.001)
+        except KeyboardInterrupt:
+            print("Closing and exiting the program")
+            SerialPort.close()
+            sys.exit(0)
+
+    elif distances[1] > 30.00 and distances[0] > 30.00:
+        try:
+            OutgoingData = 'R'
+            SerialPort.write(bytes(OutgoingData, 'utf-8'))
+            time.sleep(0.001)
+        except KeyboardInterrupt:
+            print("Closing and exiting the program")
+            SerialPort.close()
+            sys.exit(0)
+
+    elif distances[2] > 30.00 and distances[3] > 30.00:
+        try:
+            OutgoingData = 'L'
+            SerialPort.write(bytes(OutgoingData, 'utf-8'))
+            time.sleep(0.001)
+        except KeyboardInterrupt:
+            print("Closing and exiting the program")
+            SerialPort.close()
+            sys.exit(0)
+
     el_time = time.time() - start_time
 
 final_time = time.time() - start_time
