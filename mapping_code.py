@@ -10,26 +10,27 @@ def signal_handler(signal, frame):
     SerialPort.close()
     sys.exit(0)
 
+
+
+
 map = np.zeros((5, 5))
 '''
 Map: 
 -------------
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
+| 0 0 0 0 0 |
 | 0 * 0 0 0 |
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
 -------------
 
 * : Robot
 1 : Object
 0 : Empty
 
-
-
 '''
 posx = 1
-posy = 0
+posy = 4
 print(map)
 
 COM = 'COM4'
@@ -42,7 +43,7 @@ distances = np.array((0,0,0,0,), dtype='float')
 start_time = time.time()
 # map is divided into 30cmx30cm submaps
 el_time = 0.000
-while (el_time < 20.000):
+while (el_time < 1200.000):
 
     try:
         OutgoingData = '1'
@@ -57,11 +58,12 @@ while (el_time < 20.000):
         IncomingData = SerialPort.readline()
         if (IncomingData):
             data = IncomingData.decode('utf-8')
-            distances[num] = data
+            distances[num] = float(data)
             num = num + 1
             time.sleep(0.01)
 
     if distances[1] > 30.00 and distances[2] > 30.00:
+        ### Moving above or below
         try:
             OutgoingData = 'F'
             SerialPort.write(bytes(OutgoingData, 'utf-8'))
@@ -71,7 +73,10 @@ while (el_time < 20.000):
             SerialPort.close()
             sys.exit(0)
 
+
+    '''
     elif distances[1] > 30.00 and distances[0] > 30.00:
+        ### Turning right relative to the robot
         try:
             OutgoingData = 'R'
             SerialPort.write(bytes(OutgoingData, 'utf-8'))
@@ -90,7 +95,7 @@ while (el_time < 20.000):
             print("Closing and exiting the program")
             SerialPort.close()
             sys.exit(0)
-
+    '''
     el_time = time.time() - start_time
 
 final_time = time.time() - start_time
