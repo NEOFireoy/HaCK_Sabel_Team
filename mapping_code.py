@@ -75,7 +75,7 @@ while (el_time < 30.000):
 
         dist_travel = SerialPort.readline()
         dist_travel = dist_travel.decode('utf-8')
-        while dist_travel < 30:
+        while float(dist_travel) < 30:
             dist_travel = SerialPort.readline()
             dist_travel = dist_travel.decode('utf-8')
 
