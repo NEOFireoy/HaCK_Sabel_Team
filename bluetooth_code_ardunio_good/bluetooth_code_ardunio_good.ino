@@ -129,6 +129,7 @@ void move_foward()
 
         // keep this at the end
         dist_travel = ((dist1+dist2)/2) + ((dist_fowr() + dist_fowl())/2);
+        Serial.println(dist_travel);
   }
 }
 
@@ -160,6 +161,15 @@ void initial_distance()
   
 }
 
+
+
+void stop_move()
+{
+  //all motors turn off
+}
+
+
+
 void setup() 
 { 
   Serial.begin(9600);
@@ -187,13 +197,18 @@ void loop()
 
       initial_distance();
       
-      //char cmd = Serial.read();
+      char cmd = Serial.read();
 
-      //if(cmd == 'F')
-      //{
-        //go foward 30cm 
-        //move_foward();        
-      //}
+
+    if(cmd == '1')
+    {
+      stop_move();
+    }
+    else if(cmd == 'F')
+    {
+      //go foward 30cm 
+      move_foward();        
+    }
     
   }
 
