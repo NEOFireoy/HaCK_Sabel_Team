@@ -19,23 +19,7 @@ posy = 0
 map = np.zeros(5,5)
 #map is divided into 30cmx30cm submaps
 
-def moveFoward(data):
-    if data == True:
-        return 'F'
-    else:
-        return 'S'
 
-def moveLeft(data):
-    if data == True:
-        return 'F'
-    else:
-        return 'S'
-
-def moveRight(data):
-    if data == True:
-        return 'F'
-    else:
-        return 'S'
 
 
 
