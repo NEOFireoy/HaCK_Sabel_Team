@@ -10,5 +10,24 @@ def signal_handler(signal, frame):
   sys.exit(0)
 
 COM = input("Enter the COM Port\n")
-BAUD = input("Enter the Baudrate\n")
+BAUD = 9600
 SerialPort = serial.Serial(COM,BAUD,timeout=1)
+
+
+
+
+
+'''
+while (1):
+  try:
+     OutgoingData=input('> ')
+     SerialPort.write(bytes(OutgoingData,'utf-8'))
+  except KeyboardInterrupt:
+     print("Closing and exiting the program")
+     SerialPort.close()
+     sys.exit(0)
+  IncomingData=SerialPort.readline()
+  if(IncomingData):
+     print((IncomingData).decode('utf-8'))
+  time.sleep(0.01)
+'''
