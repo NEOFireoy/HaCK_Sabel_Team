@@ -15,17 +15,17 @@ posx = 1
 posy = 0
 print(map)
 
-COM = input("Enter the COM Port\n")
+COM = 'COM4'
 BAUD = 9600
 SerialPort = serial.Serial(COM, BAUD, timeout=1)
 
 
 
-distances = []
-
+distances = np.array((0,0,0,0,), dtype='float')
+start_time = time.time()
 # map is divided into 30cmx30cm submaps
-
-while (len(distances) < 5):
+el_time = 0.000
+while (el_time < 20.000):
 
     try:
         OutgoingData = '1'
@@ -35,16 +35,19 @@ while (len(distances) < 5):
         print("Closing and exiting the program")
         SerialPort.close()
         sys.exit(0)
+    num = 0
+    while (num < 4):
+        IncomingData = SerialPort.readline()
+        if (IncomingData):
+            data = IncomingData.decode('utf-8')
+            distances[num] = data
+            num = num + 1
+            time.sleep(0.01)
+    print(distances)
+    el_time = time.time() - start_time
 
-    IncomingData = SerialPort.readline()
-    if (IncomingData):
-        data = IncomingData.decode('utf-8')
-        distances.append(data)
-        time.sleep(0.001)
-
-
-
-
+final_time = time.time() - start_time
+print(final_time)
 
 
 '''
