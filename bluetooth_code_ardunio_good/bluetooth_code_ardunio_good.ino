@@ -115,9 +115,21 @@ double dist_fowr()
 
 void move_foward()
 {
+  auto dist1 = dist_fowr();
+  auto dist2 = dist_fowl();
 
- //move foward code here
-  
+  auto dist_travel = ((dist1+dist2)/2) + ((dist_fowr() + dist_fowl())/2);
+
+  while(dist_travel < 30)
+  {
+        //move foward code here
+
+
+
+
+        // keep this at the end
+        dist_travel = ((dist1+dist2)/2) + ((dist_fowr() + dist_fowl())/2);
+  }
 }
 
 void rotate_right()
