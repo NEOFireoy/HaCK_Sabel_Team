@@ -130,6 +130,23 @@ void rotate_left()
   //rotate left by 90deg code here
 }
 
+void initial_distance()
+{
+  double right_dist = dist_right();
+  double front_right_dist = dist_fowr();
+  double front_left_dist = dist_fowl();
+  double left_dist = dist_left();
+
+  Serial.println(right_dist);
+  delay(1);
+  Serial.println(front_right_dist);
+  delay(1);
+  Serial.println(front_left_dist);
+  delay(1);
+  Serial.println(left_dist);
+  delay(1);
+  
+}
 
 void setup() 
 { 
@@ -155,6 +172,9 @@ void loop()
 {
   if(Serial.available() > 0)
   {
+  
+      initial_distance();
+    
       char cmd = Serial.read();
 
       if(cmd == 'F')
@@ -166,6 +186,16 @@ void loop()
         double right_dist = dist_right();
         double front_right_dist = dist_fowr();
         double front_left_dist = dist_fowl();
+        double left_dist = dist_left();
+
+        Serial.println(right_dist);
+        delay(1);
+        Serial.println(front_right_dist);
+        delay(1);
+        Serial.println(front_left_dist);
+        delay(1);
+        Serial.println(left_dist);
+        delay(1);
  
         
       }
