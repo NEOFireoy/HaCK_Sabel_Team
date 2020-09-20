@@ -1,4 +1,5 @@
 
+#include <string.h>
 const int trig_fowl = 22;
 const int echo_fowl = 23;
 
@@ -114,19 +115,15 @@ void rotate_left()
 
 void initial_distance()
 {
-  double right_dist = dist_right();
-  double front_right_dist = dist_fowr();
-  double front_left_dist = dist_fowl();
-  double left_dist = dist_left();
+  String right_dist = String(dist_right());
+  String front_right_dist = String(dist_fowr());
+  String front_left_dist = String(dist_fowl());
+  String left_dist = String(dist_left());
 
-  Serial.println(right_dist);
-  delay(1);
-  Serial.println(front_right_dist);
-  delay(1);
-  Serial.println(front_left_dist);
-  delay(1);
-  Serial.println(left_dist);
-  delay(1);
+  String vals = right_dist + "s" + front_right_dist + "s" + front_left_dist + "s" + left_dist;
+
+  Serial.println(vals);
+ // Serial.println(data_send);
   
 }
 
