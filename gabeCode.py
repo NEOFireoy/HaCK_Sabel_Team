@@ -23,7 +23,8 @@ start_time = time.time()
 # map is divided into 30cmx30cm submaps
 el_time = 0.000
 # print('connected')
-while (el_time < 300.000):
+while (1):
+    '''
     OutgoingData = ""
     try:
         OutgoingData = 'a'
@@ -35,10 +36,11 @@ while (el_time < 300.000):
         print("Closing and exiting the program")
         SerialPort.close()
         sys.exit(0)
+    '''
     # num = 0
     # print('good send')
-    IncomingData = SerialPort.readline() # 4 incoming distances from arduino
     distances = [-1,-1,-1,-1]
+    IncomingData = SerialPort.readline() # 4 incoming distances from arduino
 
     if (IncomingData):
         # print('good read')
@@ -59,10 +61,10 @@ while (el_time < 300.000):
     print("right distance is:", distance1, "\n")
 
     # stop
-    print(OutgoingData)
-    if average_distance < .3000 and average_distance > 0:
+    # print(OutgoingData)
+    if average_distance < .2000 and average_distance > 0:
         try:
-            OutgoingData = 'R' # 'R' for stop if distance gets too small
+            OutgoingData = 'R' # 'S' for stop if distance gets too small
             # print('good send after data')
             SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
             # time.sleep(0.001)
@@ -72,8 +74,10 @@ while (el_time < 300.000):
             SerialPort.close()
             sys.exit(0)
 
+    # print(OutgoingData)
+    if average_distance >= .2000 and average_distance < 1.5:
         try:
-            OutgoingData = 'y' # 'S' for stop if distance gets too small
+            OutgoingData = 'F' # 'F' for forward
             # print('good send after data')
             SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
             # time.sleep(0.001)
@@ -83,93 +87,4 @@ while (el_time < 300.000):
             SerialPort.close()
             sys.exit(0)
 
-    print(OutgoingData)
-    if average_distance >= .3000 and average_distance < 1.5:
-        try:
-            OutgoingData = 'F' # 'S' for stop if distance gets too small
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-
-        try:
-            OutgoingData = 'q' # 'S' for stop if distance gets too small
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-
-    el_time = time.time() - start_time
-
-    print(OutgoingData)
-
-    # try:
-    #     OutgoingData = 'R' # 'R' to turn right at corner
-    #     SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-    #     # time.sleep(0.001)
-    # except KeyboardInterrupt:
-    #     print("Closing and exiting the program")
-    #     SerialPort.close()
-    #     sys.exit(0)
-
-'''
-    # right turn
-    if average_distance < .2000 and distance4 < .2000:
-        try:
-            OutgoingData = 'R' # 'R' to turn right at corner
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-
-    el_time = time.time() - start_time
-
-    # left turn
-    elif average_distance < .2000 and distance1 < .2000:
-        try:
-            OutgoingData = 'L' # 'L' to turn left at corner
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-
-    # stop
-    if average_distance < .2000:
-        try:
-            OutgoingData = 'S' # 'S' for stop if distance gets too small
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-
-        try:
-            OutgoingData = 'R' # 'R' to turn right at corner
-            # print('good send after data')
-            SerialPort.write(bytes(OutgoingData, 'utf-8')) # send char to arduino
-            # time.sleep(0.001)
-        except KeyboardInterrupt:
-            # print('bad send after data')
-            print("Closing and exiting the program")
-            SerialPort.close()
-            sys.exit(0)
-'''
+    time.sleep(0.01)
