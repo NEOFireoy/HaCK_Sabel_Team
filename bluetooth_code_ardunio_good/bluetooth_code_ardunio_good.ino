@@ -1,5 +1,4 @@
 
-#include <string.h>
 const int trig_fowl = 22;
 const int echo_fowl = 23;
 
