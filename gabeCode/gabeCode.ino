@@ -1,26 +1,3 @@
-/*char Incoming_value = 0;    
-void setup() 
-{ 
-    Serial.begin(9600);//Sets the baud rate for serial data       
-         //transmission 
-}
-void loop() 
-{
-if(Serial.available() > 0) 
-  {
-    float val = 30.00;
-    char cmd = Serial.read(); 
-    if (cmd == 's')
-    {
-      Serial.println(val);
-      delay(100);
-    }
-  }
- 
-  
-}*/
-
-
 const int trig_fowl = 37;
 const int echo_fowl = 36;
 
@@ -127,21 +104,21 @@ double dist_fowr()
 
 void move_foward()
 {
-  auto dist1 = dist_fowr();
-  auto dist2 = dist_fowl();
-
-  String dist_travel = String(((dist1+dist2)/2) + ((dist_fowr() + dist_fowl())/2));
-  auto d = ((dist1+dist2)/2) + ((dist_fowr() + dist_fowl())/2);
-  
   digitalWrite(motorPin1, LOW);
   digitalWrite(motorPin2, HIGH);
+  
   digitalWrite(motorPin3, LOW);
   digitalWrite(motorPin4, HIGH);
   
   digitalWrite(motorPin5, LOW);
   digitalWrite(motorPin6, HIGH);
+  
   digitalWrite(motorPin7, LOW);
   digitalWrite(motorPin8, HIGH);
+
+  delay(100);
+
+  return;
 }
 
 void rotate_right()
@@ -158,7 +135,20 @@ void rotate_right()
     
     digitalWrite(motorPin7, HIGH); // back left
     digitalWrite(motorPin8, LOW);   
-    //delay(___) if we want to turn exactly 90 deg?
+    
+    delay(2800);
+
+    digitalWrite(motorPin1, LOW);
+    digitalWrite(motorPin2, LOW);
+    digitalWrite(motorPin3, LOW);
+    digitalWrite(motorPin4, LOW);
+
+    digitalWrite(motorPin5, LOW);
+    digitalWrite(motorPin6, LOW);
+    digitalWrite(motorPin7, LOW);
+    digitalWrite(motorPin8, LOW);
+
+    return;
 }
 
 void rotate_left()
@@ -174,24 +164,9 @@ void rotate_left()
     
     digitalWrite(motorPin7, LOW); // back left
     digitalWrite(motorPin8, HIGH);   
-    //delay(___) if we want to turn exactly 90 deg?
-}
+    delay(2800);
 
-void reverse()
-{
-    //This code  will have car go reverse for 2 sec. 
-    digitalWrite(motorPin1, HIGH);
-    digitalWrite(motorPin2, LOW);
-    
-    digitalWrite(motorPin3, HIGH);
-    digitalWrite(motorPin4, LOW);
-    
-    digitalWrite(motorPin5, HIGH);
-    digitalWrite(motorPin6, LOW);
-    
-    digitalWrite(motorPin7, HIGH);
-    digitalWrite(motorPin8, LOW);   
-    //delay(2000); 
+    return;
 }
 
 void initial_distance()
@@ -203,12 +178,10 @@ void initial_distance()
 
   String vals = right_dist + "s" + front_right_dist + "s" + front_left_dist + "s" + left_dist;
 
-  Serial.println(vals);
+  Serial.println(vals); // sends all 4 sensor distances to python
  // Serial.println(data_send);
 
 }
-
-
 
 void stop_move()
 {
@@ -221,27 +194,44 @@ void stop_move()
     digitalWrite(motorPin6, LOW);
     digitalWrite(motorPin7, LOW);
     digitalWrite(motorPin8, LOW);
+    delay(10);
+    
+    //This code  will turn car right for 2 sec.
+    /*digitalWrite(motorPin1, LOW); // front right
+    digitalWrite(motorPin2, HIGH); 
+    
+    digitalWrite(motorPin3, HIGH); // front left
+    digitalWrite(motorPin4, LOW);
+    
+    digitalWrite(motorPin5, LOW); // back right
+    digitalWrite(motorPin6, HIGH); 
+    
+    digitalWrite(motorPin7, HIGH); // back left
+    digitalWrite(motorPin8, LOW);   
+    delay(2800);*/
+    
+    return; 
 }
 
 
 
 void setup() 
 { 
-  Serial.begin(9600);
+   Serial.begin(9600);
   
-   pinMode(trig_fowl, OUTPUT);
-   pinMode(echo_fowl, INPUT);
+    pinMode(trig_fowl, OUTPUT);
+    pinMode(echo_fowl, INPUT);
 
-   pinMode(trig_left, OUTPUT);
-   pinMode(echo_left, INPUT);
+    pinMode(trig_left, OUTPUT);
+    pinMode(echo_left, INPUT);
 
-   pinMode(trig_right, OUTPUT);
-   pinMode(echo_right, INPUT);
+    pinMode(trig_right, OUTPUT);
+    pinMode(echo_right, INPUT);
 
-   pinMode(trig_fowr, OUTPUT);
-   pinMode(echo_fowr, INPUT);
+    pinMode(trig_fowr, OUTPUT);
+    pinMode(echo_fowr, INPUT);
 
-   pinMode(enableA1, OUTPUT);
+    pinMode(enableA1, OUTPUT);
     pinMode(enableB1, OUTPUT);
     pinMode(enableA2, OUTPUT);
     pinMode(enableB2, OUTPUT);
@@ -256,40 +246,36 @@ void setup()
     pinMode(motorPin8, OUTPUT);
     
     //enable
-    analogWrite(enableA1, 25);
+    analogWrite(enableA1, 255);
     analogWrite(enableB1, 255);
     analogWrite(enableA2, 255);
-    analogWrite(enableB2, 255);
-  
-    
+    analogWrite(enableB2, 255); 
 }
 
 void loop() 
 {
+  // initial_distance(); // sends all 4 sensor distances to Serial
+      
+  
+      
   if(Serial.available() > 0)
   {
-
-      initial_distance();
+      initial_distance(); // sends all 4 sensor distances to Serial
+      char cmd = Serial.read(); // receives 'F' (or another char) from arduino
+      Serial.flush();
       
-      char cmd = Serial.read();
       if(cmd == 'F')
       {
-        move_foward(); 
-        char cc = Serial.read();
-        while(cc != 'S')
-        {
-          initial_distance();
-          delay(10);
-          cc = Serial.read();
-        }
         stop_move();
+        delay(100);
+        move_foward(); 
       }
-      
-    
+
+       if(cmd == 'R')
+       {
+          stop_move();
+          delay(100);
+          rotate_right();
+       }
+      }
   }
-
-  
-
-  
-
-}
