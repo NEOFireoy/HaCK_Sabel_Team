@@ -11,6 +11,8 @@ def signal_handler(signal, frame):
     sys.exit(0)
 
 
+
+
 map = np.zeros((5, 5))
 '''
 Map: 
@@ -29,7 +31,7 @@ Map:
 '''
 posx = 1
 posy = 4
-# print(map)
+#print(map)
 
 print('attempting to connect')
 
@@ -37,13 +39,15 @@ COM = 'COM4'
 BAUD = 9600
 SerialPort = serial.Serial(COM, BAUD, timeout=1)
 
-distances = np.array((0, 0, 0, 0,), dtype='float')
+
+
+distances = np.array((0,0,0,0,), dtype='float')
 start_time = time.time()
 # map is divided into 30cmx30cm submaps
 el_time = 0.000
 print('connected')
 while (el_time < 10.000):
-    print('good connect')
+
     try:
         OutgoingData = '1'
         print('good out')
@@ -56,14 +60,13 @@ while (el_time < 10.000):
         sys.exit(0)
     num = 0
     print('good send')
-    while (num < 4):
-        IncomingData = SerialPort.readline()
-        if (IncomingData):
-            print('good read')
-            data = IncomingData.decode('utf-8')
-            distances[num] = float(data)
-            num = num + 1
-            time.sleep(0.01)
+    IncomingData = SerialPort.readline()
+    if (IncomingData):
+        print('good read')
+        data = IncomingData.decode('utf-8')
+        print(data)
+        time.sleep(0.01)
+
 
     if distances[1] > 30.00 and distances[2] > 30.00:
         ### Moving above or below
@@ -74,7 +77,7 @@ while (el_time < 10.000):
             SerialPort.write(bytes(OutgoingData, 'utf-8'))
             time.sleep(0.001)
         except KeyboardInterrupt:
-            prin('bad send after data')
+            print('bad send after data')
             print("Closing and exiting the program")
             SerialPort.close()
             sys.exit(0)
@@ -98,6 +101,8 @@ while (el_time < 10.000):
             print("Closing and exiting the program")
             SerialPort.close()
             sys.exit(0)
+
+
 
     el_time = time.time() - start_time
 
