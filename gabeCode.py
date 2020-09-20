@@ -10,37 +10,6 @@ def signal_handler(signal, frame):
     SerialPort.close()
     sys.exit(0)
 
-
-
-
-map = np.zeros((5, 5))
-'''
-Map:
--------------
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
-| 0 0 0 0 0 |
-| 0 * 0 0 0 |
--------------
-* : Robot
-1 : Object
-0 : Empty
-'''
-posx = 1
-posy = 4
-#print(map)import numpy as np
-import serial
-import time
-import sys
-import signal
-
-
-def signal_handler(signal, frame):
-    print("closing program")
-    SerialPort.close()
-    sys.exit(0)
-
 map = np.zeros((5, 5))
 
 print('attempting to connect')
@@ -124,7 +93,7 @@ while (el_time < 300.000):
             # print('bad send after data')
             print("Closing and exiting the program")
             SerialPort.close()
-            sys.exit(0)
+            sys.exitx(0)
 
 
     el_time = time.time() - start_time
