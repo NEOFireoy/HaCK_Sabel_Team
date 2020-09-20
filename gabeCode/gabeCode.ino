@@ -16,7 +16,7 @@ if(Serial.available() > 0)
       delay(100);
     }
   }
-  
+ 
   
 }*/
 
@@ -146,12 +146,52 @@ void move_foward()
 
 void rotate_right()
 {
-  //rotate right by 90deg code here
+  //This code  will turn car right for 2 sec.
+    digitalWrite(motorPin1, LOW); // front right
+    digitalWrite(motorPin2, HIGH); 
+    
+    digitalWrite(motorPin3, HIGH); // front left
+    digitalWrite(motorPin4, LOW);
+    
+    digitalWrite(motorPin5, LOW); // back right
+    digitalWrite(motorPin6, HIGH); 
+    
+    digitalWrite(motorPin7, HIGH); // back left
+    digitalWrite(motorPin8, LOW);   
+    //delay(___) if we want to turn exactly 90 deg?
 }
 
 void rotate_left()
 {
-  //rotate left by 90deg code here
+    digitalWrite(motorPin1, HIGH); // front right
+    digitalWrite(motorPin2, LOW);
+    
+    digitalWrite(motorPin3, LOW); // front left
+    digitalWrite(motorPin4, HIGH);
+    
+    digitalWrite(motorPin5, HIGH); // back right
+    digitalWrite(motorPin6, LOW);
+    
+    digitalWrite(motorPin7, LOW); // back left
+    digitalWrite(motorPin8, HIGH);   
+    //delay(___) if we want to turn exactly 90 deg?
+}
+
+void reverse()
+{
+    //This code  will have car go reverse for 2 sec. 
+    digitalWrite(motorPin1, HIGH);
+    digitalWrite(motorPin2, LOW);
+    
+    digitalWrite(motorPin3, HIGH);
+    digitalWrite(motorPin4, LOW);
+    
+    digitalWrite(motorPin5, HIGH);
+    digitalWrite(motorPin6, LOW);
+    
+    digitalWrite(motorPin7, HIGH);
+    digitalWrite(motorPin8, LOW);   
+    //delay(2000); 
 }
 
 void initial_distance()
@@ -216,10 +256,10 @@ void setup()
     pinMode(motorPin8, OUTPUT);
     
     //enable
-    analogWrite(enableA1, 200);
-    analogWrite(enableB1, 200);
-    analogWrite(enableA2, 200);
-    analogWrite(enableB2, 200);
+    analogWrite(enableA1, 25);
+    analogWrite(enableB1, 255);
+    analogWrite(enableA2, 255);
+    analogWrite(enableB2, 255);
   
     
 }
