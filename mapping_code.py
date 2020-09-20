@@ -41,7 +41,7 @@ SerialPort = serial.Serial(COM, BAUD, timeout=1)
 
 
 
-distances = np.array((0,0,0,0,), dtype='float')
+
 start_time = time.time()
 # map is divided into 30cmx30cm submaps
 el_time = 0.000
@@ -64,9 +64,12 @@ while (el_time < 10.000):
     if (IncomingData):
         print('good read')
         data = IncomingData.decode('utf-8')
-        print(data)
+        distances = data.split('s')
         time.sleep(0.01)
-
+    distances[0] = float(distances[0])
+    distances[1] = float(distances[1])
+    distances[2] = float(distances[2])
+    distances[3] = float(distances[3])
 
     if distances[1] > 30.00 and distances[2] > 30.00:
         ### Moving above or below
