@@ -116,7 +116,7 @@ void move_foward()
   digitalWrite(motorPin7, LOW);
   digitalWrite(motorPin8, HIGH);
 
-  delay(100);
+  delay(200);
 
   return;
 }
@@ -136,7 +136,7 @@ void rotate_right()
     digitalWrite(motorPin7, HIGH); // back left
     digitalWrite(motorPin8, LOW);   
     
-    delay(2800);
+    delay(1850);
 
     digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, LOW);
@@ -164,7 +164,7 @@ void rotate_left()
     
     digitalWrite(motorPin7, LOW); // back left
     digitalWrite(motorPin8, HIGH);   
-    delay(2800);
+    delay(1850);
 
     return;
 }
@@ -178,9 +178,7 @@ void initial_distance()
 
   String vals = right_dist + "s" + front_right_dist + "s" + front_left_dist + "s" + left_dist;
 
-  Serial.println(vals); // sends all 4 sensor distances to python
- // Serial.println(data_send);
-
+  Serial.println(vals); // sends all 4 sensor distances to python as one string
 }
 
 void stop_move()
@@ -208,7 +206,7 @@ void stop_move()
     
     digitalWrite(motorPin7, HIGH); // back left
     digitalWrite(motorPin8, LOW);   
-    delay(2800);*/
+    delay(2200);*/
     
     return; 
 }
@@ -254,12 +252,58 @@ void setup()
 
 void loop() 
 {
-  // initial_distance(); // sends all 4 sensor distances to Serial
-      
-  
-      
+  initial_distance(); // sends all 4 sensor distances to Serial
+  Serial.flush();
+     
   if(Serial.available() > 0)
   {
+    char cmd = Serial.read();
+     /*if(cmd == 'F')
+     {
+      move_foward();
+      delay(10);
+      stop_move();
+     }*/
+
+    switch(cmd)
+    {
+      case 'F':
+        move_foward();
+        delay(10);
+        stop_move();
+        break;
+      case 'R':
+        rotate_right();
+        break;
+      case 'L':
+        rotate_left();
+        break;
+      default:
+        stop_move();
+        delay(500);
+    }
+
+    Serial.end();
+    Serial.begin(9600 );
+      
+    /*if(cmd == 'S')
+     {
+      stop_move();
+      delay(500);
+     }
+     
+     if(cmd == 'R')
+     {
+      rotate_right();
+     }
+
+     else if(cmd == 'L')
+     {
+      rotate_left();
+     }  
+     Serial.flush();
+  }
+  /*{
       initial_distance(); // sends all 4 sensor distances to Serial
       char cmd = Serial.read(); // receives 'F' (or another char) from arduino
       Serial.flush();
@@ -276,6 +320,6 @@ void loop()
           stop_move();
           delay(100);
           rotate_right();
-       }
+       }*/
       }
   }
