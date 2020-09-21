@@ -117,7 +117,7 @@ void move_foward()
   digitalWrite(motorPin7, LOW);
   digitalWrite(motorPin8, HIGH);
 
-  delay(50);
+  delay(1);
 
   return;
 }
@@ -137,9 +137,9 @@ void rotate_right()
     digitalWrite(motorPin7, HIGH); // back left
     digitalWrite(motorPin8, LOW);   
     
-    delay(2000);
+    delay(2500);
 
-    digitalWrite(motorPin1, LOW);
+    /*digitalWrite(motorPin1, LOW);
     digitalWrite(motorPin2, LOW);
     digitalWrite(motorPin3, LOW);
     digitalWrite(motorPin4, LOW);
@@ -147,28 +147,10 @@ void rotate_right()
     digitalWrite(motorPin5, LOW);
     digitalWrite(motorPin6, LOW);
     digitalWrite(motorPin7, LOW);
-    digitalWrite(motorPin8, LOW);
+    digitalWrite(motorPin8, LOW);*/
 
     turns++;
     
-    return;
-}
-
-void rotate_left()
-{
-    digitalWrite(motorPin1, HIGH); // front right
-    digitalWrite(motorPin2, LOW);
-    
-    digitalWrite(motorPin3, LOW); // front left
-    digitalWrite(motorPin4, HIGH);
-    
-    digitalWrite(motorPin5, HIGH); // back right
-    digitalWrite(motorPin6, LOW);
-    
-    digitalWrite(motorPin7, LOW); // back left
-    digitalWrite(motorPin8, HIGH);   
-    delay(1875);
-
     return;
 }
 
@@ -196,20 +178,6 @@ void stop_move()
     digitalWrite(motorPin7, LOW);
     digitalWrite(motorPin8, LOW);
     delay(10);
-    
-    //This code  will turn car right for 2 sec.
-    /*digitalWrite(motorPin1, LOW); // front right
-    digitalWrite(motorPin2, HIGH); 
-    
-    digitalWrite(motorPin3, HIGH); // front left
-    digitalWrite(motorPin4, LOW);
-    
-    digitalWrite(motorPin5, LOW); // back right
-    digitalWrite(motorPin6, HIGH); 
-    
-    digitalWrite(motorPin7, HIGH); // back left
-    digitalWrite(motorPin8, LOW);   
-    delay(2200);*/
     
     return; 
 }
@@ -247,15 +215,15 @@ void setup()
     pinMode(motorPin8, OUTPUT);
     
     //enable
-    analogWrite(enableA1, 255);
-    analogWrite(enableB1, 255);
-    analogWrite(enableA2, 255);
-    analogWrite(enableB2, 255); 
+    analogWrite(enableA1, 190);
+    analogWrite(enableB1, 190);
+    analogWrite(enableA2, 190);
+    analogWrite(enableB2, 190); 
 }
 
 void loop() 
 {
-  initial_distance(); // sends all 4 sensor distances to Serial
+  initial_distance();// sends all 4 sensor distances to Serial
   Serial.flush();
      
   if(Serial.available() > 0)
@@ -272,15 +240,12 @@ void loop()
       case 'R':
         rotate_right();
         break;
-      //case 'L':
-        //rotate_left();
-        //break;
       default:
         stop_move();
-        delay(500);
+        //delay(500);
     }
 
     Serial.end();
-    Serial.begin(9600);
+    Serial.begin(9600 );
       }
   }
